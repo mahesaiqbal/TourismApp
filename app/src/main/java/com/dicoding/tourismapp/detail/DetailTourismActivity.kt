@@ -1,24 +1,31 @@
 package com.dicoding.tourismapp.detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.dicoding.tourismapp.MyApplication
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Tourism
+import com.dicoding.tourismapp.core.ui.ViewModelFactory
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class DetailTourismActivity : AppCompatActivity() {
-
-    private val viewModel: DetailTourismViewModel by viewModel()
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels { factory }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_tourism)
         setSupportActionBar(toolbar)
@@ -39,7 +46,7 @@ class DetailTourismActivity : AppCompatActivity() {
             setStatusFavorite(statusFavorite)
             fab.setOnClickListener {
                 statusFavorite = !statusFavorite
-                viewModel.setFavoriteTourism(detailTourism, statusFavorite)
+                detailTourismViewModel.setFavoriteTourism(detailTourism, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }
