@@ -1,24 +1,22 @@
 package com.dicoding.tourismapp.detail
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
-import com.dicoding.tourismapp.core.domain.model.Tourism
-import dagger.hilt.android.AndroidEntryPoint
+import com.mahesaiqbal.tourismapp.core.domain.model.Tourism
 import kotlinx.android.synthetic.main.activity_detail_tourism.*
 import kotlinx.android.synthetic.main.content_detail_tourism.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class DetailTourismActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels()
+    private val detailTourismViewModel: DetailTourismViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

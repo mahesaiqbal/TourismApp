@@ -1,9 +1,32 @@
 package com.dicoding.tourismapp
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
+import com.dicoding.tourismapp.di.useCaseModule
+import com.dicoding.tourismapp.di.viewModelModule
+import com.mahesaiqbal.tourismapp.core.di.databaseModule
+import com.mahesaiqbal.tourismapp.core.di.networkModule
+import com.mahesaiqbal.tourismapp.core.di.repositoryModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-@HiltAndroidApp
 open class MyApplication : Application() {
 
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger(Level.NONE)
+            androidContext(this@MyApplication)
+            modules(
+                listOf(
+                    databaseModule,
+                    networkModule,
+                    repositoryModule,
+                    useCaseModule,
+                    viewModelModule
+                )
+            )
+        }
+    }
 }
